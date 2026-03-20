@@ -11,8 +11,13 @@ Quantitative trading research and tooling: data, signals, backtests, and executi
 ## Getting started
 
 1. Clone the repository.
-2. Add a Python (or other) environment and pin dependencies when you introduce them.
-3. Never commit API keys, broker credentials, or proprietary datasets.
+2. Create or activate the local Python environment:
+   - PowerShell: `.venv\Scripts\Activate.ps1`
+   - CMD: `.venv\Scripts\activate.bat`
+3. Upgrade `pip` and install dependencies after you add them:
+   - `python -m pip install --upgrade pip`
+   - `pip install -r requirements.txt`
+4. Never commit API keys, broker credentials, or proprietary datasets.
 
 ## License
 
