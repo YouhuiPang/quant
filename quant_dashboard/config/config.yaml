@@ -1,0 +1,115 @@
+project:
+  name: "Quant Platform v3"
+  theme: "dark"
+  log_level: "INFO"
+
+runtime:
+  mode: "paper"
+  data_provider: "csv"
+  broker_provider: "paper"
+  live_disabled: true
+
+paths:
+  combined_prices: "data/raw/sample_multi_asset_prices.csv"
+  processed_dir: "data/processed"
+  outputs_dir: "data/outputs"
+  state_dir: "data/state"
+  sqlite_path: "data/state/platform_state.db"
+  market_cache_path: "data/raw/ibkr_historical_cache.csv"
+  logs_dir: "logs"
+
+data:
+  format: "combined_csv"
+  required_columns:
+    - date
+    - ticker
+    - open
+    - high
+    - low
+    - close
+    - volume
+  min_history_rows: 30
+
+features:
+  ma_short_window: 5
+  ma_long_window: 20
+  momentum_window: 10
+  drawdown_window: 20
+  volatility_window: 20
+
+strategy:
+  allow_short: false
+  name: "trend_momentum_v1"
+  default_confidence: 0.75
+
+portfolio:
+  method: "equal_weight_active"
+  max_gross_exposure: 1.0
+  cash_when_flat: true
+  lot_size: 1
+
+backtest:
+  annualization_factor: 252
+  transaction_cost_bps: 10
+  initial_capital: 1.0
+  execution_lag_days: 1
+  fill_price_field: "close"
+
+benchmark:
+  enabled: true
+  method: "equal_weight_universe"
+
+risk:
+  max_weight_per_asset: 0.35
+  max_concurrent_positions: 3
+  gross_exposure_limit: 1.0
+  min_confidence_threshold: 0.30
+  volatility_cap: 0.08
+  kill_switch: false
+
+paper_execution:
+  initial_cash: 100000.0
+  order_type: "MKT"
+  fill_price_field: "close"
+  allow_partial_fills: false
+  default_fill_ratio: 1.0
+  transaction_cost_bps: 10
+
+ibkr:
+  host: "127.0.0.1"
+  port: 7497
+  client_id: 7
+  account_id: ""
+  readonly_mode: true
+  enable_live_orders: false
+  confirm_live_orders: false
+  use_ib_gateway: true
+  market_data_type: 1
+
+data_sync:
+  symbols:
+    - symbol: "SPY"
+      sec_type: "STK"
+      exchange: "SMART"
+      currency: "USD"
+      primary_exchange: "ARCA"
+    - symbol: "QQQ"
+      sec_type: "STK"
+      exchange: "SMART"
+      currency: "USD"
+      primary_exchange: "NASDAQ"
+    - symbol: "IWM"
+      sec_type: "STK"
+      exchange: "SMART"
+      currency: "USD"
+      primary_exchange: "ARCA"
+  bar_size: "1 day"
+  duration: "2 Y"
+  throttle_seconds: 1.0
+  use_cache: true
+  latest_snapshot_enabled: true
+
+dashboard:
+  default_date_window_days: 180
+  chart_height: 380
+  default_ticker: "ALL"

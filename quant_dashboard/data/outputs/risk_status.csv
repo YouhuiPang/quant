@@ -1,0 +1,4 @@
+timestamp,ticker,target_weight,approved_weight,risk_flag,risk_notes
+2025-01-27,AAA,0.0,0.0,BLOCKED,Below confidence threshold
+2025-01-27,BBB,0.5,0.35,CAPPED,Max asset weight cap applied
+2025-01-27,CCC,0.5,0.35,CAPPED,Max asset weight cap applied
