@@ -19,10 +19,28 @@ temp/
 !.env.example
 *.pem
 
-# Common build / deps (uncomment what you use)
-# node_modules/
-# dist/
-# build/
-# __pycache__/
-# .venv/
-# *.pyc
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data & outputs (large / local)
+data/raw/
+data/cache/
+*.parquet
+*.feather
+*.h5
+*.hdf5
+
+# Optional JS tooling
+node_modules/
+dist/
+build/
